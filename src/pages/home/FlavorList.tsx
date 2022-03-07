@@ -11,27 +11,27 @@ import { Error } from "components/Error";
 import React, { useState } from "react";
 import { useQuery } from "react-query";
 
-import { BookAddDialog } from "./BookAddDialog";
-import { BookItem } from "./BookItem";
+import { FlavorAddDialog } from "./FlavorAddDialog";
+import { FlavorItem } from "./FlavorItem";
 
-export interface BookItemData {
-  author: string;
+export interface FlavorItemData {
+  ingredients: string;
   id: string;
-  title: string;
+  name: string;
 }
 
 export interface FormInput {
-  author: string;
-  title: string;
+  ingredients: string;
+  name: string;
 }
 
-export const BookList = (): JSX.Element => {
+export const FlavorList = (): JSX.Element => {
   const [isOpenAdd, setIsOpenAdd] = useState(false);
-  const { data, error, isLoading } = useQuery<BookItemData[], Error>(
-    "bookList",
-    async (): Promise<BookItemData[]> => {
+  const { data, error, isLoading } = useQuery<FlavorItemData[], Error>(
+    "flavorList",
+    async (): Promise<FlavorItemData[]> => {
       const { data } = await axios.get(
-        `${process.env.REACT_APP_API_SERVER}/books`
+        `${process.env.REACT_APP_API_SERVER}/flavors`
       );
 
       return data;
@@ -59,7 +59,7 @@ export const BookList = (): JSX.Element => {
         sx={{ width: "100%" }}
       >
         <Box>
-          <Typography variant="h1">Book List</Typography>
+          <Typography variant="h1">Flavor List</Typography>
         </Box>
         <Box>
           <Button onClick={handleOpenAdd}>Create</Button>
@@ -72,20 +72,20 @@ export const BookList = (): JSX.Element => {
         </Stack>
       )}
       {data && data.length === 0 && (
-        <Typography variant="body1">No books are available.</Typography>
+        <Typography variant="body1">No flavors are available.</Typography>
       )}
       {data && data.length > 0 && (
         <List>
           {React.Children.toArray(
-            data.map(({ author, id, title }, index, array) => {
+            data.map(({ ingredients, id, name }, index, array) => {
               const lastItem = index === array.length - 1;
 
               return (
-                <BookItem
-                  author={author}
+                <FlavorItem
+                  ingredients={ingredients}
                   id={id}
                   lastItem={lastItem}
-                  title={title}
+                  name={name}
                 />
               );
             })
@@ -94,7 +94,7 @@ export const BookList = (): JSX.Element => {
       )}
 
       {/* add dialog */}
-      <BookAddDialog handleCloseAdd={handleCloseAdd} isOpenAdd={isOpenAdd} />
+      <FlavorAddDialog handleCloseAdd={handleCloseAdd} isOpenAdd={isOpenAdd} />
     </>
   );
 };

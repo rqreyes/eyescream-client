@@ -12,29 +12,29 @@ import { useSnackbar } from "notistack";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { useMutation, useQueryClient } from "react-query";
 
-import { FormInput } from "./BookList";
+import { FormInput } from "./FlavorList";
 
-interface BookAddDialogProps {
+interface FlavorAddDialogProps {
   handleCloseAdd: () => void;
   isOpenAdd: boolean;
 }
 
-export const BookAddDialog: React.FC<BookAddDialogProps> = ({
+export const FlavorAddDialog: React.FC<FlavorAddDialogProps> = ({
   handleCloseAdd,
   isOpenAdd,
 }) => {
   const { enqueueSnackbar } = useSnackbar();
   const queryClient = useQueryClient();
   const defaultValues = {
-    author: "",
-    title: "",
+    ingredients: "",
+    name: "",
   };
   const { control, handleSubmit, reset } = useForm({
     defaultValues,
   });
   const { isLoading, mutate } = useMutation<AxiosResponse, Error, FormInput>(
-    (bookNew) =>
-      axios.post(`${process.env.REACT_APP_API_SERVER}/books`, bookNew),
+    (flavorNew) =>
+      axios.post(`${process.env.REACT_APP_API_SERVER}/flavors`, flavorNew),
     {
       onError: (error) => {
         enqueueSnackbar(`An error has occurred: ${error.message}`, {
@@ -42,10 +42,10 @@ export const BookAddDialog: React.FC<BookAddDialogProps> = ({
         });
       },
       onSuccess: () => {
-        queryClient.invalidateQueries("bookList");
+        queryClient.invalidateQueries("flavorList");
         reset(defaultValues);
         handleCloseAdd();
-        enqueueSnackbar("Book added successfully", { variant: "success" });
+        enqueueSnackbar("Flavor added successfully", { variant: "success" });
       },
     }
   );
@@ -56,15 +56,15 @@ export const BookAddDialog: React.FC<BookAddDialogProps> = ({
   return (
     <Dialog onClose={handleCloseAdd} open={isOpenAdd}>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <DialogTitle>Create Book</DialogTitle>
+        <DialogTitle>Create Flavor</DialogTitle>
         <DialogContent>
           <Controller
             control={control}
-            name="title"
+            name="name"
             render={({ field }) => (
               <TextField
                 fullWidth
-                label="Title"
+                label="Name"
                 required
                 variant="standard"
                 {...field}
@@ -73,11 +73,11 @@ export const BookAddDialog: React.FC<BookAddDialogProps> = ({
           />
           <Controller
             control={control}
-            name="author"
+            name="ingredients"
             render={({ field }) => (
               <TextField
                 fullWidth
-                label="Author"
+                label="Ingredients"
                 required
                 variant="standard"
                 {...field}

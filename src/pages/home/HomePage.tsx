@@ -1,3 +1,3 @@
-import { BookList } from "./BookList";
+import { FlavorList } from "./FlavorList";
 
-export const Home = (): JSX.Element => <BookList />;
+export const Home = (): JSX.Element => <FlavorList />;
