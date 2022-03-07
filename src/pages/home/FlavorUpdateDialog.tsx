@@ -13,15 +13,15 @@ import { useEffect, useState } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { useMutation, useQueryClient } from "react-query";
 
-import { BookItemData, FormInput } from "./BookList";
+import { FlavorItemData, FormInput } from "./FlavorList";
 
-interface BookUpdateDialogProps {
+interface FlavorUpdateDialogProps {
   handleCloseUpdate: () => void;
   id: string;
   isOpenUpdate: boolean;
 }
 
-export const BookUpdateDialog: React.FC<BookUpdateDialogProps> = ({
+export const FlavorUpdateDialog: React.FC<FlavorUpdateDialogProps> = ({
   handleCloseUpdate,
   id,
   isOpenUpdate,
@@ -30,19 +30,19 @@ export const BookUpdateDialog: React.FC<BookUpdateDialogProps> = ({
   const { enqueueSnackbar } = useSnackbar();
   const queryClient = useQueryClient();
   const defaultValues = {
-    author: "",
     id: "",
-    title: "",
+    ingredients: "",
+    name: "",
   };
   const { control, handleSubmit, reset } = useForm({ defaultValues });
-  // update book item
+  // update flavor item
   const { isLoading: isLoadingUpdate, mutate: mutateUpdate } = useMutation<
     AxiosResponse,
     Error,
     FormInput
   >(
     (data) =>
-      axios.patch(`${process.env.REACT_APP_API_SERVER}/books/${id}`, data),
+      axios.patch(`${process.env.REACT_APP_API_SERVER}/flavors/${id}`, data),
     {
       onError: (error) => {
         enqueueSnackbar(`An error has occurred: ${error.message}`, {
@@ -50,9 +50,9 @@ export const BookUpdateDialog: React.FC<BookUpdateDialogProps> = ({
         });
       },
       onSuccess: () => {
-        queryClient.invalidateQueries("bookList");
+        queryClient.invalidateQueries("flavorList");
         handleCloseUpdate();
-        enqueueSnackbar("Book updated successfully", { variant: "success" });
+        enqueueSnackbar("Flavor updated successfully", { variant: "success" });
       },
     }
   );
@@ -61,31 +61,33 @@ export const BookUpdateDialog: React.FC<BookUpdateDialogProps> = ({
   };
 
   useEffect(() => {
-    const defaultBookListData =
-      queryClient.getQueryData<BookItemData[]>("bookList");
-    const defaultBookItemData = defaultBookListData
-      ? defaultBookListData.find((bookItem: BookItemData) => bookItem.id === id)
+    const defaultFlavorListData =
+      queryClient.getQueryData<FlavorItemData[]>("flavorList");
+    const defaultFlavorItemData = defaultFlavorListData
+      ? defaultFlavorListData.find(
+          (flavorItem: FlavorItemData) => flavorItem.id === id
+        )
       : {
-          author: "",
+          ingredients: "",
           id: "",
-          title: "",
+          name: "",
         };
 
-    reset(defaultBookItemData);
+    reset(defaultFlavorItemData);
   }, [id, isCancel, queryClient, reset]);
 
   return (
     <Dialog onClose={handleCloseUpdate} open={isOpenUpdate}>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <DialogTitle>Update Book</DialogTitle>
+        <DialogTitle>Update Flavor</DialogTitle>
         <DialogContent>
           <Controller
             control={control}
-            name="title"
+            name="name"
             render={({ field }) => (
               <TextField
                 fullWidth
-                label="Title"
+                label="Name"
                 required
                 variant="standard"
                 {...field}
@@ -94,11 +96,11 @@ export const BookUpdateDialog: React.FC<BookUpdateDialogProps> = ({
           />
           <Controller
             control={control}
-            name="author"
+            name="ingredients"
             render={({ field }) => (
               <TextField
                 fullWidth
-                label="Author"
+                label="Ingredients"
                 required
                 variant="standard"
                 {...field}

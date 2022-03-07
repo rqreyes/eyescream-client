@@ -3,15 +3,15 @@ import { ListItemIcon, ListItemText, MenuItem } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { BookDeleteDialog } from "./BookDeleteDialog";
-import { BookUpdateDialog } from "./BookUpdateDialog";
+import { FlavorDeleteDialog } from "./FlavorDeleteDialog";
+import { FlavorUpdateDialog } from "./FlavorUpdateDialog";
 
-interface BookItemMenuProps {
+interface FlavorItemMenuProps {
   id: string;
 }
 type Dialog = "update" | "delete";
 
-export const BookItemMenu: React.FC<BookItemMenuProps> = ({
+export const FlavorItemMenu: React.FC<FlavorItemMenuProps> = ({
   id,
 }): JSX.Element => {
   const [isOpenDialog, setIsOpenDialog] = useState({
@@ -27,7 +27,7 @@ export const BookItemMenu: React.FC<BookItemMenuProps> = ({
     <>
       <MenuItem
         onClick={() => {
-          navigate(`/book-info/${id}`);
+          navigate(`/flavor-info/${id}`);
         }}
       >
         <ListItemIcon>
@@ -49,14 +49,14 @@ export const BookItemMenu: React.FC<BookItemMenuProps> = ({
       </MenuItem>
 
       {/* update dialog */}
-      <BookUpdateDialog
+      <FlavorUpdateDialog
         handleCloseUpdate={() => handleToggleDialog("update", false)}
         id={id}
         isOpenUpdate={isOpenDialog.update}
       />
 
       {/* delete dialog */}
-      <BookDeleteDialog
+      <FlavorDeleteDialog
         handleCloseDelete={() => handleToggleDialog("delete", false)}
         id={id}
         isOpenDelete={isOpenDialog.delete}
