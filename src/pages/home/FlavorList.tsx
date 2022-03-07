@@ -68,7 +68,7 @@ export const FlavorList = (): JSX.Element => {
 
       {isLoading && (
         <Stack alignItems="center" justifyContent="center">
-          <CircularProgress sx={{ height: 100 }} />
+          <CircularProgress sx={{ height: 100, my: 10 }} />
         </Stack>
       )}
       {data && data.length === 0 && (
