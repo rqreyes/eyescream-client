@@ -1,29 +1,29 @@
 import { Divider, ListItem, ListItemText } from "@mui/material";
 import { MoreMenu } from "components/MoreMenu";
 
-import { BookItemMenu } from "./BookItemMenu";
-import { BookItemData } from "./BookList";
+import { FlavorItemMenu } from "./FlavorItemMenu";
+import { FlavorItemData } from "./FlavorList";
 
-interface BookItemProps extends BookItemData {
+interface FlavorItemProps extends FlavorItemData {
   lastItem: boolean;
 }
 
-export const BookItem: React.FC<BookItemProps> = ({
-  author,
+export const FlavorItem: React.FC<FlavorItemProps> = ({
+  ingredients,
   id,
   lastItem,
-  title,
+  name,
 }): JSX.Element => {
   return (
     <>
       <ListItem>
         <ListItemText>
-          <strong>{title}</strong>
+          <strong>{name}</strong>
           <br />
-          {author}
+          {ingredients}
         </ListItemText>
         <MoreMenu>
-          <BookItemMenu id={id} />
+          <FlavorItemMenu id={id} />
         </MoreMenu>
       </ListItem>
       {!lastItem && <Divider />}

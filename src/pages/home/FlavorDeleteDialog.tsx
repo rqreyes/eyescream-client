@@ -11,59 +11,61 @@ import axios, { AxiosResponse } from "axios";
 import { useSnackbar } from "notistack";
 import { useMutation, useQueryClient } from "react-query";
 
-import { BookItemData } from "./BookList";
+import { FlavorItemData } from "./FlavorList";
 
-interface BookDeleteDialogProps {
+interface FlavorDeleteDialogProps {
   handleCloseDelete: () => void;
   id: string;
   isOpenDelete: boolean;
 }
 
-export const BookDeleteDialog: React.FC<BookDeleteDialogProps> = ({
+export const FlavorDeleteDialog: React.FC<FlavorDeleteDialogProps> = ({
   handleCloseDelete,
   id,
   isOpenDelete,
 }) => {
   const queryClient = useQueryClient();
   const { enqueueSnackbar } = useSnackbar();
-  const bookList = queryClient.getQueryData<BookItemData[]>("bookList");
-  let bookItem = { author: "", id: "", title: "" };
-  if (bookList) {
-    const bookItemFound = bookList.find((bookItem) => bookItem.id === id);
+  const flavorList = queryClient.getQueryData<FlavorItemData[]>("flavorList");
+  let flavorItem = { id: "", ingredients: "", name: "" };
+  if (flavorList) {
+    const flavorItemFound = flavorList.find(
+      (flavorItem) => flavorItem.id === id
+    );
 
-    if (bookItemFound) bookItem = bookItemFound;
+    if (flavorItemFound) flavorItem = flavorItemFound;
   }
   const { isLoading: isLoadingDelete, mutate: mutateDelete } = useMutation<
     AxiosResponse,
     Error,
     string
-  >((id) => axios.delete(`${process.env.REACT_APP_API_SERVER}/books/${id}`), {
+  >((id) => axios.delete(`${process.env.REACT_APP_API_SERVER}/flavors/${id}`), {
     onError: (error) => {
       enqueueSnackbar(`An error has occurred: ${error.message}`, {
         variant: "error",
       });
     },
     onSuccess: () => {
-      queryClient.invalidateQueries("bookList");
+      queryClient.invalidateQueries("flavorList");
       handleCloseDelete();
-      enqueueSnackbar("Book deleted successfully", { variant: "success" });
+      enqueueSnackbar("Flavor deleted successfully", { variant: "success" });
     },
   });
 
   return (
     <Dialog onClose={handleCloseDelete} open={isOpenDelete}>
-      <DialogTitle>Delete Book</DialogTitle>
+      <DialogTitle>Delete Flavor</DialogTitle>
       <DialogContent>
-        Are you sure you want to permanently delete this book?
+        Are you sure you want to permanently delete this flavor?
         <Paper
           sx={{
             mt: 2,
             p: 2,
           }}
         >
-          <strong>{bookItem.title}</strong>
+          <strong>{flavorItem.name}</strong>
           <br />
-          {bookItem.author}
+          {flavorItem.ingredients}
         </Paper>
       </DialogContent>
       <DialogActions>
