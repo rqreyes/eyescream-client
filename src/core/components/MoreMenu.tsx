@@ -1,4 +1,4 @@
-import { MoreVert } from "@mui/icons-material";
+import { MoreVert as MoreVertIcon } from "@mui/icons-material";
 import { Button, Menu } from "@mui/material";
 import React, { useState } from "react";
 
@@ -18,7 +18,7 @@ export const MoreMenu: React.FC<MoreMenuProps> = ({ children }) => {
   return (
     <>
       <Button onClick={handleOpenMenu}>
-        <MoreVert />
+        <MoreVertIcon />
       </Button>
       <Menu
         anchorEl={anchorEl}

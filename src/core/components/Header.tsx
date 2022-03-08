@@ -1,4 +1,7 @@
-import { Mail, MoveToInbox } from "@mui/icons-material";
+import {
+  Mail as MailIcon,
+  MoveToInbox as MoveToInboxIcon,
+} from "@mui/icons-material";
 import MenuIcon from "@mui/icons-material/Menu";
 import {
   AppBar,
@@ -107,7 +110,7 @@ export const Header = (): JSX.Element => {
                   <StyledNavLink to={link}>
                     <ListItem button>
                       <ListItemIcon>
-                        {index % 2 === 0 ? <MoveToInbox /> : <Mail />}
+                        {index % 2 === 0 ? <MoveToInboxIcon /> : <MailIcon />}
                       </ListItemIcon>
                       <ListItemText primary={label} />
                     </ListItem>

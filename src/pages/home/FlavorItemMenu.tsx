@@ -1,4 +1,8 @@
-import { Delete, Info, Edit as Update } from "@mui/icons-material";
+import {
+  Delete as DeleteIcon,
+  Info as InfoIcon,
+  Edit as UpdateIcon,
+} from "@mui/icons-material";
 import { ListItemIcon, ListItemText, MenuItem } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -31,19 +35,19 @@ export const FlavorItemMenu: React.FC<FlavorItemMenuProps> = ({
         }}
       >
         <ListItemIcon>
-          <Info />
+          <InfoIcon />
         </ListItemIcon>
         <ListItemText>More Info</ListItemText>
       </MenuItem>
       <MenuItem onClick={() => handleToggleDialog("update", true)}>
         <ListItemIcon>
-          <Update />
+          <UpdateIcon />
         </ListItemIcon>
         <ListItemText>Update</ListItemText>
       </MenuItem>
       <MenuItem onClick={() => handleToggleDialog("delete", true)}>
         <ListItemIcon>
-          <Delete />
+          <DeleteIcon />
         </ListItemIcon>
         <ListItemText>Delete</ListItemText>
       </MenuItem>
