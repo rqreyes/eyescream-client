@@ -8,6 +8,7 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
+import { env } from "core/env";
 import Keycloak, { KeycloakInstance } from "keycloak-js";
 import { useEffect, useState } from "react";
 
@@ -19,16 +20,16 @@ const accordionDetailsStyles = {
   },
 };
 
-export const Login = (): JSX.Element => {
+export const LoginPage = (): JSX.Element => {
+  const { AUTH_URL, AUTH_REALM_ID, AUTH_CLIENT_ID } = env;
   const [keycloak, setKeycloak] = useState<null | KeycloakInstance>(null);
   const [authenticated, setAuthenticated] = useState(false);
-  console.log("keycloak: ", keycloak);
 
   useEffect(() => {
     const keycloak = Keycloak({
-      url: "http://localhost/auth/",
-      realm: "rreyes",
-      clientId: "eyescream",
+      url: AUTH_URL,
+      realm: AUTH_REALM_ID,
+      clientId: AUTH_CLIENT_ID,
     });
     setKeycloak(keycloak);
 
@@ -40,7 +41,7 @@ export const Login = (): JSX.Element => {
         console.log(error);
       }
     })();
-  }, []);
+  }, [AUTH_URL, AUTH_REALM_ID, AUTH_CLIENT_ID]);
 
   return (
     <>

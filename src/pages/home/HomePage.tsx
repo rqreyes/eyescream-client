@@ -1,3 +1,3 @@
 import { FlavorList } from "./FlavorList";
 
-export const Home = (): JSX.Element => <FlavorList />;
+export const HomePage = (): JSX.Element => <FlavorList />;

@@ -1,18 +1,18 @@
 import { CircularProgress, Stack, Typography } from "@mui/material";
 import axios from "axios";
-import { Error } from "components/Error";
+import { Error } from "core/components/Error";
+import { env } from "core/env";
 import { FlavorItemData } from "pages/home/FlavorList";
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 
-export const FlavorInfo = (): JSX.Element => {
+export const FlavorInfoPage = (): JSX.Element => {
+  const { API_SERVER } = env;
   const { id } = useParams();
   const { data, error, isLoading } = useQuery<FlavorItemData, Error>(
     "flavorList",
     async (): Promise<FlavorItemData> => {
-      const { data } = await axios.get(
-        `${process.env.REACT_APP_API_SERVER}/flavors/${id}`
-      );
+      const { data } = await axios.get(`${API_SERVER}/flavors/${id}`);
 
       return data;
     },
