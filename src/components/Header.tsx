@@ -71,7 +71,7 @@ export const Header = (): JSX.Element => {
                 className={({ isActive }) => (isActive ? "active" : "")}
                 to="/"
               >
-                <Button color="inherit">React Query</Button>
+                <Button color="inherit">EyeScream</Button>
               </StyledNavLink>
             </Box>
             <Box>
