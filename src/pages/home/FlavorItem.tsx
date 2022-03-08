@@ -1,5 +1,5 @@
 import { Divider, ListItem, ListItemText } from "@mui/material";
-import { MoreMenu } from "components/MoreMenu";
+import { MoreMenu } from "core/components/MoreMenu";
 
 import { FlavorItemMenu } from "./FlavorItemMenu";
 import { FlavorItemData } from "./FlavorList";

@@ -74,7 +74,7 @@ export const Header = (): JSX.Element => {
                 <Button color="inherit">EyeScream</Button>
               </StyledNavLink>
             </Box>
-            <Box>
+            <Stack direction="row" spacing={1}>
               {!isScreenSm &&
                 React.Children.toArray(
                   navList.map(({ label, link }) => (
@@ -92,7 +92,7 @@ export const Header = (): JSX.Element => {
               >
                 <Button color="inherit">Log In</Button>
               </StyledNavLink>
-            </Box>
+            </Stack>
           </Stack>
         </Toolbar>
       </AppBar>
