@@ -7,7 +7,7 @@ import {
   Typography,
 } from "@mui/material";
 import axios from "axios";
-import { Error } from "components/Error";
+import { Error } from "core/components/Error";
 import React, { useState } from "react";
 import { useQuery } from "react-query";
 
