@@ -19,13 +19,9 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import { styled, useTheme } from "@mui/material/styles";
+import { pages } from "pages";
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
-
-const navList = [
-  { label: "Blank", link: "/blank" },
-  { label: "Easter Egg", link: "/easter-egg" },
-];
 
 const StyledNavLink = styled(NavLink)(() => ({
   color: "#fff",
@@ -50,6 +46,7 @@ export const Header = (): JSX.Element => {
   const handleCloseDrawer = () => {
     setIsOpenDrawer(false);
   };
+  const pagesHeader = pages.filter((page) => page.hasOwnProperty("headerName"));
 
   return (
     <>
@@ -80,12 +77,12 @@ export const Header = (): JSX.Element => {
             <Stack direction="row" spacing={1}>
               {!isScreenSm &&
                 React.Children.toArray(
-                  navList.map(({ label, link }) => (
+                  pagesHeader.map(({ headerName, path }) => (
                     <StyledNavLink
                       className={({ isActive }) => (isActive ? "active" : "")}
-                      to={link}
+                      to={path}
                     >
-                      <Button color="inherit">{label}</Button>
+                      <Button color="inherit">{headerName}</Button>
                     </StyledNavLink>
                   ))
                 )}
@@ -102,17 +99,17 @@ export const Header = (): JSX.Element => {
       <Drawer onClose={handleCloseDrawer} open={isOpenDrawer}>
         <List sx={{ width: 250 }}>
           {React.Children.toArray(
-            navList.map(({ label, link }, index, array) => {
+            pagesHeader.map(({ headerName, path }, index, array) => {
               const lastItem = index === array.length - 1;
 
               return (
                 <>
-                  <StyledNavLink to={link}>
+                  <StyledNavLink to={path}>
                     <ListItem button>
                       <ListItemIcon>
                         {index % 2 === 0 ? <MoveToInboxIcon /> : <MailIcon />}
                       </ListItemIcon>
-                      <ListItemText primary={label} />
+                      <ListItemText primary={headerName} />
                     </ListItem>
                   </StyledNavLink>
                   {!lastItem && <Divider />}
