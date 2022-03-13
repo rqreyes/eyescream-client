@@ -1,3 +1,4 @@
+import { MoreVert as MoreVertIcon } from "@mui/icons-material";
 import { Divider, ListItem, ListItemText } from "@mui/material";
 import { MoreMenu } from "core/components/MoreMenu";
 
@@ -22,7 +23,7 @@ export const FlavorItem: React.FC<FlavorItemProps> = ({
           <br />
           {ingredients}
         </ListItemText>
-        <MoreMenu>
+        <MoreMenu icon={<MoreVertIcon />}>
           <FlavorItemMenu id={id} />
         </MoreMenu>
       </ListItem>

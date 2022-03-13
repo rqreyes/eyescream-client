@@ -8,6 +8,7 @@ import { SnackbarProvider } from "notistack";
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
+import { AuthProvider } from "react-oidc-context";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { BrowserRouter } from "react-router-dom";
@@ -15,6 +16,7 @@ import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
+// theme
 const theme = createTheme({
   components: {
     MuiCssBaseline: {
@@ -27,6 +29,7 @@ const theme = createTheme({
   },
 });
 
+// query client
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -35,6 +38,13 @@ const queryClient = new QueryClient({
   },
 });
 
+// auth
+const oidcConfig = {
+  authority: "http://localhost/auth/realms/rreyes/",
+  client_id: "eyescream",
+  redirect_uri: "http://localhost:3000",
+};
+
 ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
@@ -42,8 +52,10 @@ ReactDOM.render(
       <QueryClientProvider client={queryClient}>
         <BrowserRouter>
           <SnackbarProvider TransitionComponent={Collapse}>
-            <App />
-            <ReactQueryDevtools initialIsOpen={false} />
+            <AuthProvider {...oidcConfig}>
+              <App />
+              <ReactQueryDevtools initialIsOpen={false} />
+            </AuthProvider>
           </SnackbarProvider>
         </BrowserRouter>
       </QueryClientProvider>

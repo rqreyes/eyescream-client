@@ -1,12 +1,12 @@
-import { MoreVert as MoreVertIcon } from "@mui/icons-material";
 import { Button, Menu } from "@mui/material";
 import React, { useState } from "react";
 
 interface MoreMenuProps {
   children: React.ReactElement;
+  icon: React.ReactElement;
 }
 
-export const MoreMenu: React.FC<MoreMenuProps> = ({ children }) => {
+export const MoreMenu: React.FC<MoreMenuProps> = ({ children, icon }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const handleOpenMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -17,9 +17,7 @@ export const MoreMenu: React.FC<MoreMenuProps> = ({ children }) => {
 
   return (
     <>
-      <Button onClick={handleOpenMenu}>
-        <MoreVertIcon />
-      </Button>
+      <Button onClick={handleOpenMenu}>{icon}</Button>
       <Menu
         anchorEl={anchorEl}
         keepMounted

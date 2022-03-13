@@ -1,6 +1,7 @@
 import { EasterEggPage } from "./easter-egg";
 import { FlavorInfoPage } from "./flavor-info";
 import { HomePage } from "./home";
+import { LoginPage } from "./login";
 import { NotFoundPage } from "./not-found";
 
 export const pages = [
@@ -13,6 +14,10 @@ export const pages = [
     headerName: "Easter Egg",
     path: "/easter-egg",
     privateRoute: true,
+  },
+  {
+    element: <LoginPage />,
+    path: "/login",
   },
   {
     element: <FlavorInfoPage />,

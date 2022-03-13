@@ -1,4 +1,7 @@
 import {
+  AccountCircle as AccountCircleIcon,
+  Login as LoginIcon,
+  Logout as LogoutIcon,
   Mail as MailIcon,
   MoveToInbox as MoveToInboxIcon,
 } from "@mui/icons-material";
@@ -14,13 +17,16 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
+  MenuItem,
   Stack,
   Toolbar,
   useMediaQuery,
 } from "@mui/material";
 import { styled, useTheme } from "@mui/material/styles";
+import { MoreMenu } from "core/components/MoreMenu";
 import { pages } from "pages";
 import React, { useState } from "react";
+import { useAuth } from "react-oidc-context";
 import { NavLink } from "react-router-dom";
 
 const StyledNavLink = styled(NavLink)(() => ({
@@ -35,6 +41,40 @@ const StyledNavLink = styled(NavLink)(() => ({
     },
   },
 }));
+
+const AccountMenu = () => {
+  const auth = useAuth();
+
+  if (auth.isAuthenticated) {
+    return (
+      <MenuItem
+        onClick={() => {
+          auth.signoutRedirect({
+            extraQueryParams: {
+              post_logout_redirect_uri: "http://localhost:3000",
+            },
+          });
+          auth.clearStaleState();
+          auth.removeUser();
+        }}
+      >
+        <ListItemIcon>
+          <LogoutIcon />
+        </ListItemIcon>
+        <ListItemText>Log Out</ListItemText>
+      </MenuItem>
+    );
+  }
+
+  return (
+    <MenuItem onClick={() => auth.signinRedirect()}>
+      <ListItemIcon>
+        <LoginIcon />
+      </ListItemIcon>
+      <ListItemText>Log In</ListItemText>
+    </MenuItem>
+  );
+};
 
 export const Header = (): JSX.Element => {
   const [isOpenDrawer, setIsOpenDrawer] = useState(false);
@@ -53,6 +93,7 @@ export const Header = (): JSX.Element => {
       <AppBar>
         <Toolbar>
           <Stack
+            alignItems="center"
             direction="row"
             justifyContent="space-between"
             sx={{ width: "100%" }}
@@ -74,7 +115,7 @@ export const Header = (): JSX.Element => {
                 <Button color="inherit">EyeScream</Button>
               </StyledNavLink>
             </Box>
-            <Stack direction="row" spacing={1}>
+            <Stack alignItems="center" direction="row" spacing={1}>
               {!isScreenSm &&
                 React.Children.toArray(
                   pagesHeader.map(({ headerName, path }) => (
@@ -86,12 +127,15 @@ export const Header = (): JSX.Element => {
                     </StyledNavLink>
                   ))
                 )}
-              <StyledNavLink
-                className={({ isActive }) => (isActive ? "active" : "")}
-                to="/login"
+              <MoreMenu
+                icon={
+                  <AccountCircleIcon
+                    sx={{ color: "#fff", height: "40px", width: "40px" }}
+                  />
+                }
               >
-                <Button color="inherit">Log In</Button>
-              </StyledNavLink>
+                <AccountMenu />
+              </MoreMenu>
             </Stack>
           </Stack>
         </Toolbar>
