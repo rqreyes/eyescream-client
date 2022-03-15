@@ -1,4 +1,5 @@
 import {
+  AccountCircle as AccountCircleIcon,
   Login as LoginIcon,
   Logout as LogoutIcon,
   Mail as MailIcon,
@@ -27,7 +28,7 @@ import { MoreMenu } from "core/components/MoreMenu";
 import { pages } from "pages";
 import React, { useState } from "react";
 import { useAuth } from "react-oidc-context";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 const StyledNavLink = styled(NavLink)(() => ({
   color: "#fff",
@@ -44,40 +45,55 @@ const StyledNavLink = styled(NavLink)(() => ({
 
 const AccountMenu = () => {
   const auth = useAuth();
-
-  if (auth.isAuthenticated) {
-    return (
-      <MenuItem
-        onClick={() => {
-          auth.signoutRedirect({
-            extraQueryParams: {
-              post_logout_redirect_uri: "http://localhost:3000",
-            },
-          });
-          auth.clearStaleState();
-          auth.removeUser();
-        }}
-      >
-        <ListItemIcon>
-          <LogoutIcon />
-        </ListItemIcon>
-        <ListItemText>Sign Out</ListItemText>
-      </MenuItem>
-    );
-  }
+  const navigate = useNavigate();
 
   return (
-    <MenuItem onClick={() => auth.signinRedirect()}>
-      <ListItemIcon>
-        <LoginIcon />
-      </ListItemIcon>
-      <ListItemText>Sign In</ListItemText>
-    </MenuItem>
+    <>
+      {auth.isAuthenticated ? (
+        <>
+          <MenuItem
+            onClick={() => {
+              navigate(`login`);
+            }}
+          >
+            <ListItemIcon>
+              <AccountCircleIcon />
+            </ListItemIcon>
+            <ListItemText>Profile</ListItemText>
+          </MenuItem>
+          <Divider />
+          <MenuItem
+            onClick={() => {
+              auth.signoutRedirect({
+                extraQueryParams: {
+                  post_logout_redirect_uri: "http://localhost:3000",
+                },
+              });
+              auth.clearStaleState();
+              auth.removeUser();
+            }}
+          >
+            <ListItemIcon>
+              <LogoutIcon />
+            </ListItemIcon>
+            <ListItemText>Sign Out</ListItemText>
+          </MenuItem>
+        </>
+      ) : (
+        <MenuItem onClick={() => auth.signinRedirect()}>
+          <ListItemIcon>
+            <LoginIcon />
+          </ListItemIcon>
+          <ListItemText>Sign In</ListItemText>
+        </MenuItem>
+      )}
+    </>
   );
 };
 
 export const Header = (): JSX.Element => {
   const [isOpenDrawer, setIsOpenDrawer] = useState(false);
+  const auth = useAuth();
   const theme = useTheme();
   const isScreenSm = useMediaQuery(theme.breakpoints.down("md"));
   const handleOpenDrawer = () => {
@@ -127,7 +143,13 @@ export const Header = (): JSX.Element => {
                     </StyledNavLink>
                   ))
                 )}
-              <MoreMenu icon={<Avatar />}>
+              <MoreMenu
+                icon={
+                  <Avatar sx={{ lineHeight: "normal" }}>
+                    {auth.user?.profile.preferred_username?.charAt(0) ?? null}
+                  </Avatar>
+                }
+              >
                 <AccountMenu />
               </MoreMenu>
             </Stack>
