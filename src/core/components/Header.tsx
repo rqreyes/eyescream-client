@@ -1,5 +1,4 @@
 import {
-  AccountCircle as AccountCircleIcon,
   Login as LoginIcon,
   Logout as LogoutIcon,
   Mail as MailIcon,
@@ -8,6 +7,7 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import {
   AppBar,
+  Avatar,
   Box,
   Button,
   Divider,
@@ -61,7 +61,7 @@ const AccountMenu = () => {
         <ListItemIcon>
           <LogoutIcon />
         </ListItemIcon>
-        <ListItemText>Log Out</ListItemText>
+        <ListItemText>Sign Out</ListItemText>
       </MenuItem>
     );
   }
@@ -71,7 +71,7 @@ const AccountMenu = () => {
       <ListItemIcon>
         <LoginIcon />
       </ListItemIcon>
-      <ListItemText>Log In</ListItemText>
+      <ListItemText>Sign In</ListItemText>
     </MenuItem>
   );
 };
@@ -127,13 +127,7 @@ export const Header = (): JSX.Element => {
                     </StyledNavLink>
                   ))
                 )}
-              <MoreMenu
-                icon={
-                  <AccountCircleIcon
-                    sx={{ color: "#fff", height: "40px", width: "40px" }}
-                  />
-                }
-              >
+              <MoreMenu icon={<Avatar />}>
                 <AccountMenu />
               </MoreMenu>
             </Stack>
