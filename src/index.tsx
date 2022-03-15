@@ -4,6 +4,7 @@ import {
   CssBaseline,
   ThemeProvider,
 } from "@mui/material";
+import { env } from "core/env";
 import { SnackbarProvider } from "notistack";
 import React from "react";
 import ReactDOM from "react-dom";
@@ -39,10 +40,11 @@ const queryClient = new QueryClient({
 });
 
 // auth
+const { AUTH_AUTHORITY, AUTH_CLIENT_ID, AUTH_REDIRECT_URI } = env;
 const oidcConfig = {
-  authority: "http://localhost/auth/realms/rreyes/",
-  client_id: "eyescream",
-  redirect_uri: "http://localhost:3000",
+  authority: AUTH_AUTHORITY,
+  client_id: AUTH_CLIENT_ID,
+  redirect_uri: AUTH_REDIRECT_URI,
 };
 
 ReactDOM.render(
