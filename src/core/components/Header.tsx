@@ -53,7 +53,7 @@ const AccountMenu = () => {
         <>
           <MenuItem
             onClick={() => {
-              navigate(`login`);
+              navigate(`/profile`);
             }}
           >
             <ListItemIcon>

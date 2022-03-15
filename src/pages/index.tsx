@@ -1,8 +1,8 @@
 import { EasterEggPage } from "./easter-egg";
 import { FlavorInfoPage } from "./flavor-info";
 import { HomePage } from "./home";
-import { LoginPage } from "./login";
 import { NotFoundPage } from "./not-found";
+import { ProfilePage } from "./profile";
 
 export const pages = [
   {
@@ -16,8 +16,9 @@ export const pages = [
     privateRoute: true,
   },
   {
-    element: <LoginPage />,
-    path: "/login",
+    element: <ProfilePage />,
+    path: "/profile",
+    privateRoute: true,
   },
   {
     element: <FlavorInfoPage />,
