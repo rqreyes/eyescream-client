@@ -12,8 +12,7 @@ import { useSnackbar } from "notistack";
 import { useEffect, useState } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { useMutation, useQueryClient } from "react-query";
-
-import { FlavorItemData, FormInput } from "./FlavorList";
+import { FlavorItemData, FormInput } from "types/app";
 
 interface FlavorUpdateDialogProps {
   handleCloseUpdate: () => void;

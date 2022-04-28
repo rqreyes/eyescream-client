@@ -5,20 +5,31 @@
     "jest": true,
     "node": true
   },
+  // tells ESLint that your config extends the given configurations
   "extends": [
+    "airbnb",
     "airbnb-typescript",
-    "airbnb/hooks",
     "plugin:@typescript-eslint/recommended",
     "plugin:prettier/recommended"
   ],
+  // enables ESLint to understand TypeScript syntax
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "project": "**/tsconfig.json"
   },
-  "plugins": ["react", "import"],
+  // tells ESLint to load the plugin packages and enables usage of rules
+  "plugins": ["import", "react"],
   "rules": {
+    // @typescript-eslint
     "@typescript-eslint/no-shadow": "off",
     "@typescript-eslint/no-use-before-define": ["error"],
+    // eslint
+    "no-use-before-define": "off",
+    "sort-imports": [
+      "error",
+      { "ignoreDeclarationSort": true, "ignoreCase": true }
+    ],
+    // import
     "import/order": [
       "warn",
       {
@@ -26,29 +37,26 @@
           "caseInsensitive": true,
           "order": "asc"
         },
-        "groups": [
-          "builtin",
-          "external",
-          "index",
-          "sibling",
-          "parent",
-          "internal"
-        ],
         "newlines-between": "always"
       }
     ],
     "import/prefer-default-export": "off",
-    "no-use-before-define": "off",
+    // react
     "react/function-component-definition": [
       "error",
       {
         "namedComponents": "arrow-function"
       }
     ],
-    "sort-imports": [
+    "react/jsx-no-useless-fragment": [
       "error",
-      { "ignoreDeclarationSort": true, "ignoreCase": true }
-    ]
+      {
+        "allowExpressions": true
+      }
+    ],
+    "react/jsx-props-no-spreading": "off",
+    "react/prop-types": "off",
+    "react/react-in-jsx-scope": "off"
   },
   "settings": {
     "react": {
