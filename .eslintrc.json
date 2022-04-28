@@ -24,6 +24,7 @@
     "@typescript-eslint/no-shadow": "off",
     "@typescript-eslint/no-use-before-define": ["error"],
     // eslint
+    "no-shadow": "off",
     "no-use-before-define": "off",
     "sort-imports": [
       "error",
@@ -31,7 +32,7 @@
     ],
     // import
     "import/order": [
-      "warn",
+      "error",
       {
         "alphabetize": {
           "caseInsensitive": true,
