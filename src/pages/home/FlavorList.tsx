@@ -10,20 +10,10 @@ import axios from "axios";
 import { Error } from "core/components/Error";
 import React, { useState } from "react";
 import { useQuery } from "react-query";
+import { FlavorItemData } from "types/app";
 
 import { FlavorAddDialog } from "./FlavorAddDialog";
 import { FlavorItem } from "./FlavorItem";
-
-export interface FlavorItemData {
-  ingredients: string;
-  id: string;
-  name: string;
-}
-
-export interface FormInput {
-  ingredients: string;
-  name: string;
-}
 
 export const FlavorList = (): JSX.Element => {
   const [isOpenAdd, setIsOpenAdd] = useState(false);
@@ -54,7 +44,7 @@ export const FlavorList = (): JSX.Element => {
 
       <Stack
         alignItems="center"
-        direction={"row"}
+        direction="row"
         justifyContent="space-between"
         sx={{ width: "100%" }}
       >

@@ -9,6 +9,7 @@ export const PrivateRoute = (): JSX.Element => {
       return <div>Signing you in...</div>;
     case "signoutRedirect":
       return <div>Signing you out...</div>;
+    default:
   }
 
   if (auth.isLoading) {
@@ -23,5 +24,9 @@ export const PrivateRoute = (): JSX.Element => {
     return <Outlet />;
   }
 
-  return <button onClick={() => auth.signinRedirect()}>Log in</button>;
+  return (
+    <button type="button" onClick={() => auth.signinRedirect()}>
+      Log in
+    </button>
+  );
 };

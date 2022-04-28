@@ -10,8 +10,7 @@ import {
 import axios, { AxiosResponse } from "axios";
 import { useSnackbar } from "notistack";
 import { useMutation, useQueryClient } from "react-query";
-
-import { FlavorItemData } from "./FlavorList";
+import { FlavorItemData } from "types/app";
 
 interface FlavorDeleteDialogProps {
   handleCloseDelete: () => void;
