@@ -11,8 +11,7 @@ import axios, { AxiosResponse } from "axios";
 import { useSnackbar } from "notistack";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { useMutation, useQueryClient } from "react-query";
-
-import { FormInput } from "./FlavorList";
+import { FormInput } from "types/app";
 
 interface FlavorAddDialogProps {
   handleCloseAdd: () => void;

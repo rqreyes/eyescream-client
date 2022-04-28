@@ -102,7 +102,9 @@ export const Header = (): JSX.Element => {
   const handleCloseDrawer = () => {
     setIsOpenDrawer(false);
   };
-  const pagesHeader = pages.filter((page) => page.hasOwnProperty("headerName"));
+  const pagesHeader = pages.filter((page) =>
+    Object.prototype.hasOwnProperty.call(page, "headerName")
+  );
 
   return (
     <>
