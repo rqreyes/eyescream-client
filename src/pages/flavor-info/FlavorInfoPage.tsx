@@ -2,9 +2,9 @@ import { CircularProgress, Stack, Typography } from "@mui/material";
 import axios from "axios";
 import { Error } from "core/components/Error";
 import { env } from "core/env";
-import { FlavorItemData } from "pages/home/FlavorList";
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
+import { FlavorItemData } from "types/app";
 
 export const FlavorInfoPage = (): JSX.Element => {
   const { API_SERVER } = env;
