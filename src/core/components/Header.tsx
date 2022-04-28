@@ -26,7 +26,7 @@ import {
 import { styled, useTheme } from "@mui/material/styles";
 import { MoreMenu } from "core/components/MoreMenu";
 import { pages } from "pages";
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import { useAuth } from "react-oidc-context";
 import { NavLink, useNavigate } from "react-router-dom";
 
@@ -135,16 +135,15 @@ export const Header = (): JSX.Element => {
             </Box>
             <Stack alignItems="center" direction="row" spacing={1}>
               {!isScreenSm &&
-                React.Children.toArray(
-                  pagesHeader.map(({ headerName, path }) => (
-                    <StyledNavLink
-                      className={({ isActive }) => (isActive ? "active" : "")}
-                      to={path}
-                    >
-                      <Button color="inherit">{headerName}</Button>
-                    </StyledNavLink>
-                  ))
-                )}
+                pagesHeader.map(({ headerName, path }) => (
+                  <StyledNavLink
+                    className={({ isActive }) => (isActive ? "active" : "")}
+                    key={path}
+                    to={path}
+                  >
+                    <Button color="inherit">{headerName}</Button>
+                  </StyledNavLink>
+                ))}
               <MoreMenu
                 icon={
                   <Avatar sx={{ lineHeight: "normal" }}>
@@ -160,25 +159,23 @@ export const Header = (): JSX.Element => {
       </AppBar>
       <Drawer onClose={handleCloseDrawer} open={isOpenDrawer}>
         <List sx={{ width: 250 }}>
-          {React.Children.toArray(
-            pagesHeader.map(({ headerName, path }, index, array) => {
-              const lastItem = index === array.length - 1;
+          {pagesHeader.map(({ headerName, path }, index, array) => {
+            const lastItem = index === array.length - 1;
 
-              return (
-                <>
-                  <StyledNavLink to={path}>
-                    <ListItem button>
-                      <ListItemIcon>
-                        {index % 2 === 0 ? <MoveToInboxIcon /> : <MailIcon />}
-                      </ListItemIcon>
-                      <ListItemText primary={headerName} />
-                    </ListItem>
-                  </StyledNavLink>
-                  {!lastItem && <Divider />}
-                </>
-              );
-            })
-          )}
+            return (
+              <Fragment key={path}>
+                <StyledNavLink to={path}>
+                  <ListItem button>
+                    <ListItemIcon>
+                      {index % 2 === 0 ? <MoveToInboxIcon /> : <MailIcon />}
+                    </ListItemIcon>
+                    <ListItemText primary={headerName} />
+                  </ListItem>
+                </StyledNavLink>
+                {!lastItem && <Divider />}
+              </Fragment>
+            );
+          })}
         </List>
       </Drawer>
     </>

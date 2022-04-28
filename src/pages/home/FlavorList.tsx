@@ -66,20 +66,19 @@ export const FlavorList = (): JSX.Element => {
       )}
       {data && data.length > 0 && (
         <List>
-          {React.Children.toArray(
-            data.map(({ ingredients, id, name }, index, array) => {
-              const lastItem = index === array.length - 1;
+          {data.map(({ ingredients, id, name }, index, array) => {
+            const lastItem = index === array.length - 1;
 
-              return (
-                <FlavorItem
-                  ingredients={ingredients}
-                  id={id}
-                  lastItem={lastItem}
-                  name={name}
-                />
-              );
-            })
-          )}
+            return (
+              <FlavorItem
+                ingredients={ingredients}
+                id={id}
+                key={id}
+                lastItem={lastItem}
+                name={name}
+              />
+            );
+          })}
         </List>
       )}
 

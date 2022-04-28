@@ -10,7 +10,7 @@ export const FlavorInfoPage = (): JSX.Element => {
   const { API_SERVER } = env;
   const { id } = useParams();
   const { data, error, isLoading } = useQuery<FlavorItemData, Error>(
-    "flavorList",
+    "flavorItem",
     async (): Promise<FlavorItemData> => {
       const { data } = await axios.get(`${API_SERVER}/flavors/${id}`);
 
