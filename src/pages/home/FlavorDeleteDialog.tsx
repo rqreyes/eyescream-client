@@ -34,22 +34,21 @@ export const FlavorDeleteDialog: React.FC<FlavorDeleteDialogProps> = ({
 
     if (flavorItemFound) flavorItem = flavorItemFound;
   }
-  const { isLoading: isLoadingDelete, mutate: mutateDelete } = useMutation<
-    AxiosResponse,
-    Error,
-    string
-  >((id) => axios.delete(`${process.env.REACT_APP_API_SERVER}/flavors/${id}`), {
-    onError: (error) => {
-      enqueueSnackbar(`An error has occurred: ${error.message}`, {
-        variant: "error",
-      });
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries("flavorList");
-      handleCloseDelete();
-      enqueueSnackbar("Flavor deleted successfully", { variant: "success" });
-    },
-  });
+  const { isLoading, mutate } = useMutation<AxiosResponse, Error, string>(
+    (id) => axios.delete(`${process.env.REACT_APP_API_SERVER}/flavors/${id}`),
+    {
+      onError: (error) => {
+        enqueueSnackbar(`An error has occurred: ${error.message}`, {
+          variant: "error",
+        });
+      },
+      onSuccess: () => {
+        queryClient.invalidateQueries("flavorList");
+        handleCloseDelete();
+        enqueueSnackbar("Flavor deleted successfully", { variant: "success" });
+      },
+    }
+  );
 
   return (
     <Dialog onClose={handleCloseDelete} open={isOpenDelete}>
@@ -69,8 +68,8 @@ export const FlavorDeleteDialog: React.FC<FlavorDeleteDialogProps> = ({
       </DialogContent>
       <DialogActions>
         <Button onClick={handleCloseDelete}>Cancel</Button>
-        <Button onClick={() => mutateDelete(id)}>
-          {isLoadingDelete ? <CircularProgress size={20} /> : "Delete"}
+        <Button onClick={() => mutate(id)}>
+          {isLoading ? <CircularProgress size={20} /> : "Delete"}
         </Button>
       </DialogActions>
     </Dialog>

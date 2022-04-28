@@ -26,7 +26,7 @@ import {
 import { styled, useTheme } from "@mui/material/styles";
 import { MoreMenu } from "core/components/MoreMenu";
 import { pages } from "pages";
-import React, { Fragment, useState } from "react";
+import { Fragment, useState } from "react";
 import { useAuth } from "react-oidc-context";
 import { NavLink, useNavigate } from "react-router-dom";
 

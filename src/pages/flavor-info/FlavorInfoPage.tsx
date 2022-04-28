@@ -9,7 +9,7 @@ import { FlavorItemData } from "types/app";
 export const FlavorInfoPage = (): JSX.Element => {
   const { API_SERVER } = env;
   const { id } = useParams();
-  const { data, error, isLoading } = useQuery<FlavorItemData, Error>(
+  const { data, error, isFetching } = useQuery<FlavorItemData, Error>(
     "flavorItem",
     async (): Promise<FlavorItemData> => {
       const { data } = await axios.get(`${API_SERVER}/flavors/${id}`);
@@ -28,13 +28,13 @@ export const FlavorInfoPage = (): JSX.Element => {
 
       <Typography variant="h1">Flavor Information</Typography>
 
-      {isLoading && (
+      {isFetching && (
         <Stack alignItems="center" justifyContent="center">
           <CircularProgress sx={{ height: 100, my: 10 }} />
         </Stack>
       )}
 
-      {data && (
+      {!isFetching && data && (
         <Typography>
           <strong>ID</strong>: {id}
           <br />

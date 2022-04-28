@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import { Error } from "core/components/Error";
-import React, { useState } from "react";
+import { useState } from "react";
 import { useQuery } from "react-query";
 import { FlavorItemData } from "types/app";
 
@@ -17,7 +17,7 @@ import { FlavorItem } from "./FlavorItem";
 
 export const FlavorList = (): JSX.Element => {
   const [isOpenAdd, setIsOpenAdd] = useState(false);
-  const { data, error, isLoading } = useQuery<FlavorItemData[], Error>(
+  const { data, error, isFetching } = useQuery<FlavorItemData[], Error>(
     "flavorList",
     async (): Promise<FlavorItemData[]> => {
       const { data } = await axios.get(
@@ -56,15 +56,15 @@ export const FlavorList = (): JSX.Element => {
         </Box>
       </Stack>
 
-      {isLoading && (
+      {isFetching && (
         <Stack alignItems="center" justifyContent="center">
           <CircularProgress sx={{ height: 100, my: 10 }} />
         </Stack>
       )}
-      {data && data.length === 0 && (
+      {!isFetching && data && data.length === 0 && (
         <Typography variant="body1">No flavors are available.</Typography>
       )}
-      {data && data.length > 0 && (
+      {!isFetching && data && data.length > 0 && (
         <List>
           {data.map(({ ingredients, id, name }, index, array) => {
             const lastItem = index === array.length - 1;
