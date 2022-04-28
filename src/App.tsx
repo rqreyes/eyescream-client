@@ -10,19 +10,17 @@ const App = (): JSX.Element => (
     <Header />
     <Layout>
       <Routes>
-        {React.Children.toArray(
-          pages.map(({ element, path, privateRoute }) => {
-            if (privateRoute) {
-              return (
-                <Route path={path} element={<PrivateRoute />}>
-                  <Route path={path} element={element} />
-                </Route>
-              );
-            }
+        {pages.map(({ element, path, privateRoute }) => {
+          if (privateRoute) {
+            return (
+              <Route key={path} path={path} element={<PrivateRoute />}>
+                <Route path={path} element={element} />
+              </Route>
+            );
+          }
 
-            return <Route path={path} element={element} />;
-          })
-        )}
+          return <Route key={path} path={path} element={element} />;
+        })}
       </Routes>
     </Layout>
   </>
