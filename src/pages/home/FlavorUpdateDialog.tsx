@@ -35,11 +35,7 @@ export const FlavorUpdateDialog: React.FC<FlavorUpdateDialogProps> = ({
   };
   const { control, handleSubmit, reset } = useForm({ defaultValues });
   // update flavor item
-  const { isLoading: isLoadingUpdate, mutate: mutateUpdate } = useMutation<
-    AxiosResponse,
-    Error,
-    FormInput
-  >(
+  const { isLoading, mutate } = useMutation<AxiosResponse, Error, FormInput>(
     (data) =>
       axios.patch(`${process.env.REACT_APP_API_SERVER}/flavors/${id}`, data),
     {
@@ -56,7 +52,7 @@ export const FlavorUpdateDialog: React.FC<FlavorUpdateDialogProps> = ({
     }
   );
   const onSubmit: SubmitHandler<FormInput> = (data) => {
-    mutateUpdate(data);
+    mutate(data);
   };
 
   useEffect(() => {
@@ -117,7 +113,7 @@ export const FlavorUpdateDialog: React.FC<FlavorUpdateDialogProps> = ({
             Cancel
           </Button>
           <Button type="submit">
-            {isLoadingUpdate ? <CircularProgress size={20} /> : "Update"}
+            {isLoading ? <CircularProgress size={20} /> : "Update"}
           </Button>
         </DialogActions>
       </form>
