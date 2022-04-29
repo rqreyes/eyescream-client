@@ -1,3 +1,6 @@
+import { Box, Button, Typography } from "@mui/material";
+import { Error } from "core/components/Error";
+import { Loading } from "core/components/Loading";
 import { useAuth } from "react-oidc-context";
 import { Outlet } from "react-router-dom";
 
@@ -6,18 +9,17 @@ export const PrivateRoute = (): JSX.Element => {
 
   switch (auth.activeNavigator) {
     case "signinSilent":
-      return <div>Signing you in...</div>;
     case "signoutRedirect":
-      return <div>Signing you out...</div>;
+      return <Loading />;
     default:
   }
 
   if (auth.isLoading) {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
 
   if (auth.error) {
-    return <div>Oops... {auth.error.message}</div>;
+    return <Error error={auth.error} />;
   }
 
   if (auth.isAuthenticated) {
@@ -25,8 +27,9 @@ export const PrivateRoute = (): JSX.Element => {
   }
 
   return (
-    <button type="button" onClick={() => auth.signinRedirect()}>
-      Log in
-    </button>
+    <Box>
+      <Typography variant="h1">Private Page</Typography>
+      <Button onClick={() => auth.signinRedirect()}>Sign in</Button>
+    </Box>
   );
 };
