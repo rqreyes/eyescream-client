@@ -66,6 +66,7 @@ const AccountMenu = () => {
             onClick={() => {
               auth.signoutRedirect({
                 extraQueryParams: {
+                  id_token_hint: auth.user?.id_token as string,
                   post_logout_redirect_uri: "http://localhost:3000",
                 },
               });
