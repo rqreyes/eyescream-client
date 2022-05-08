@@ -2,8 +2,8 @@ import { Button, Menu } from "@mui/material";
 import React, { useState } from "react";
 
 interface MoreMenuProps {
-  children: React.ReactElement;
-  icon: React.ReactElement;
+  children: React.ReactNode;
+  icon: JSX.Element;
 }
 
 export const MoreMenu: React.FC<MoreMenuProps> = ({ children, icon }) => {
