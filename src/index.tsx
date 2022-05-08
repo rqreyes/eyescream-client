@@ -5,6 +5,7 @@ import {
   ThemeProvider,
 } from "@mui/material";
 import { env } from "core/env";
+import { BreadcrumbsProvider } from "core/state/breadcrumbs/context";
 import { SnackbarProvider } from "notistack";
 import React from "react";
 import ReactDOM from "react-dom";
@@ -53,12 +54,14 @@ ReactDOM.render(
       <CssBaseline />
       <QueryClientProvider client={queryClient}>
         <BrowserRouter>
-          <SnackbarProvider TransitionComponent={Collapse}>
-            <AuthProvider {...oidcConfig}>
-              <App />
-              <ReactQueryDevtools initialIsOpen={false} />
-            </AuthProvider>
-          </SnackbarProvider>
+          <BreadcrumbsProvider>
+            <SnackbarProvider TransitionComponent={Collapse}>
+              <AuthProvider {...oidcConfig}>
+                <App />
+                <ReactQueryDevtools initialIsOpen={false} />
+              </AuthProvider>
+            </SnackbarProvider>
+          </BreadcrumbsProvider>
         </BrowserRouter>
       </QueryClientProvider>
     </ThemeProvider>
