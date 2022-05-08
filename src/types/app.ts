@@ -1,3 +1,5 @@
+import { SET_BREADCRUMBS } from "core/state/actions/actions";
+
 export interface Breadcrumb {
   active: boolean;
   display: string;
@@ -7,7 +9,7 @@ export interface BreadcrumbsState {
   breadcrumbs: Breadcrumb[];
 }
 export interface BreadcrumbsAction {
-  type: "SET_BREADCRUMBS";
+  type: typeof SET_BREADCRUMBS;
   payload: Breadcrumb[];
 }
 export interface BreadcrumbsContext {

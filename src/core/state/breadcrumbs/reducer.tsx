@@ -1,3 +1,4 @@
+import { SET_BREADCRUMBS } from "core/state/actions/actions";
 import { BreadcrumbsAction, BreadcrumbsState } from "types/app";
 
 export const breadcrumbsReducer = (
@@ -5,7 +6,7 @@ export const breadcrumbsReducer = (
   action: BreadcrumbsAction
 ): BreadcrumbsState => {
   switch (action.type) {
-    case "SET_BREADCRUMBS":
+    case SET_BREADCRUMBS:
       return {
         ...state,
         breadcrumbs: action.payload,
